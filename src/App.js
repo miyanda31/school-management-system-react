@@ -1,18 +1,33 @@
 
 import './App.css';
 import Header from './Header';
+import { useState,useEffect } from 'react';
 
 function App() {
-  const lin = '#';
-  const haveBeenClicked = (evt,title)=>{
-    console.log(title);
-    console.log(evt);
+
+  var [blogs,setBlogs] = useState([{
+    title: "named title",
+    id:1
+  },
+  {
+    title: "another title",
+    id:2
   }
+]);
+
+  const  deleteBlog = (id) => {
+      var newBlogs = blogs.splice(1,id) ;
+      setBlogs(newBlogs);
+  };
+
+  useEffect(()=>{
+    console.log("use effect");
+    
+  },[])
 
   return (
     <div className="App">
-        <Header/>
-        <a href={lin} onClick={(evt)=>haveBeenClicked(evt,"Not so cool")} >Click Me</a>
+        <Header blogs={blogs} deleteBlog={deleteBlog} />
     </div>
   );
 }
