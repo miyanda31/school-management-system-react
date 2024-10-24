@@ -1,33 +1,22 @@
 
 import './App.css';
 import Header from './Header';
-import { useState,useEffect } from 'react';
+import useFetch from './useFetch';
 
 function App() {
 
-  var [blogs,setBlogs] = useState([{
-    title: "named title",
-    id:1
-  },
-  {
-    title: "another title",
-    id:2
-  }
-]);
+  const {data:blogs} = useFetch('blogs');
 
   const  deleteBlog = (id) => {
-      var newBlogs = blogs.splice(1,id) ;
-      setBlogs(newBlogs);
-  };
+    var newBlogs = blogs.splice(1,id) ;
+    // setBlogs(newBlogs);
+};
 
-  useEffect(()=>{
-    console.log("use effect");
-    
-  },[])
+
 
   return (
     <div className="App">
-        <Header blogs={blogs} deleteBlog={deleteBlog} />
+        {blogs && <Header blogs={blogs} deleteBlog={deleteBlog} />}
     </div>
   );
 }
